@@ -35,7 +35,9 @@ def RK(f, y_0, t_0, t_f, N, s, A, b, c):
 # A, b, c - the Butcher tableau
 
 def RK_step(f, h, y_n, t_n, s, A, b, c):
-    k = np.zeros(s)
+    k = np.zeros((s, len(y_n)))
+
+    # print(y_n)
 
     k[0] = f(t_n, y_n)
     for j in range(1, s):
@@ -46,6 +48,7 @@ def RK_step(f, h, y_n, t_n, s, A, b, c):
 def get_k_values(f, h, y_n, t_n, s, A, c):
     k = np.zeros(s)
 
+    # print(f"t_n={t_n}, y_n={y_n}, h={h}")
     k[0] = f(t_n, y_n)
     for j in range(1, s):
         k[j] = f(t_n + h * c[j], y_n + h * np.dot(A[j], k))
